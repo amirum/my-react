@@ -2,9 +2,12 @@ import './Greeting.css'
 
 const name = "Amir"
 
-export const Greeting = () => {
+export const Greeting = (props: { name: string }) => {
     return (
-        <h1 className="title">Hello {name}! awsome website</h1>
+        <div>
+            {props.name}
+            <h1 className="title">Hello {name}! awsome website</h1>
+        </div>
     )
 }
 
