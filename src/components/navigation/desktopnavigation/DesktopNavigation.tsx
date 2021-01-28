@@ -1,19 +1,20 @@
 import './DesktopNavigation.css'
 import Logotype from '../../../shared/images/Logo.svg'
-import  { useHistory } from 'react-router-dom'
 import {useContext} from 'react'
-import RoutingPath from '../../../routes/RoutingPath'
 import {UserContext} from '../../../shared/provider/UserProvider'
 import {Profile} from '../../profile/Profile'
+import  { useHistory } from 'react-router-dom'
+import RoutingPath from '../../../routes/RoutingPath'
+import { DesktopNavigationTabs } from './desktopnavigationtabs/DesktopNavigationTabs'
 
 export const DesktopNavigation = () => {
-    const history = useHistory()
     const [authUser, setAuthUser] = useContext(UserContext)
+    const history = useHistory()
 
     const displaySignInButtonOrUsernameDependingOnAuth = () => {
-        return authUser
-        ? <Profile />
-        : <span onClick ={() => history.push(RoutingPath.signInView)}>Sign in</span>
+        return authUser?.username
+        ? <div className= 'profile'> <Profile/> </div>
+        : <span className= 'signInButton' onClick ={() => history.push(RoutingPath.signInView)}>Sign in</span>
     }
 
     return (
@@ -21,10 +22,9 @@ export const DesktopNavigation = () => {
             <img className='navigationLogotype'
                 src={Logotype}
                 alt={''} />
-                <span onClick={() => history.push(RoutingPath.homeView)}>Products</span>
-                <span onClick={() => history.push(RoutingPath.homeView)}>Brands</span>
-                <span onClick={() => history.push(RoutingPath.homeView)}>News</span>
-                <span onClick={() => history.push(RoutingPath.homeView)}>Guideline</span>
+                <div className='desktopNavigationTabs'>
+                    <DesktopNavigationTabs />
+                </div>
                 {displaySignInButtonOrUsernameDependingOnAuth()}
         </div>
     )

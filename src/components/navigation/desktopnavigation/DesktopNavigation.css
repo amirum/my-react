@@ -1,9 +1,21 @@
 .desktopNavigationWrapper {
     display: grid;
-    grid-template-columns: repeat(20,1fr);
+    grid-template-columns: repeat(10,1fr);
     background-color: #A7D7FF;
 }
 
 .navigationLogotype {
     width: 90px;
+    grid-column: 1/4;
+    padding: 2%;
+}
+
+.signInButton, .profile{
+    grid-column: 10/10;
+}
+
+.desktopNavigationTabs {
+    grid-column: 5/9;
+    align-items: center;
+    justify-self: center;
 }
