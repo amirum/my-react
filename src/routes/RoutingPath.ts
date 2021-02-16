@@ -5,6 +5,11 @@ const brandsView = '/brands'
 const expertiseView = '/expertise'
 const shopView = '/shop'
 const newsView = '/news'
+const settingsView = '/settings'
+
+/*auth paths*/
+
+
 
 export default {
     homeView,
@@ -13,5 +18,6 @@ export default {
     shopView,
     expertiseView,
     brandsView,
-    accesoriesView
+    accesoriesView,
+    settingsView
 }
