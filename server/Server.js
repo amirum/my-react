@@ -16,11 +16,11 @@ application.use(morgan('common'))
 
 //application.use(checkIfAdmin) // middleware functions, ska exekveras vaje gång en anrop görs
 
-/*application.get('/recipe', (request, response) => {
+application.get('/recipe', (request, response) => {
 	response.send('Api anrop gick igenom')
 })
 
-application.get('/throwdice', checkIfAdmin, (request, response) => {
+/*application.get('/throwdice', checkIfAdmin, (request, response) => {
 	response.send(Math.random().toString())
 })*/
 
