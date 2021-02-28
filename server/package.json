@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon Server.js"
+    "nodemon": "npx nodemon Server.js"
   },
   "keywords": [
     "REST_API",
@@ -17,7 +17,11 @@
   "author": "Amirum (am@gmail.com)",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "helmet": "^4.4.1",
+    "mongoose": "^5.11.18",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^7.20.0",
