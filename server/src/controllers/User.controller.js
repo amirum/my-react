@@ -1,4 +1,6 @@
+//import { response } from 'express'
 import UserModel from '../models/User.model.js'
+import StatusCode from '../../configurations/StatusCode.js'
 
 const createUser = async (request, response) => {
 
@@ -10,9 +12,9 @@ const createUser = async (request, response) => {
     
 	try {
 		const databaseResponse = await user.save()
-		response.status(201).send(databaseResponse)
+		response.status(StatusCode.CREATED).send(databaseResponse)
 	} catch (error) {
-		response.status(500).send({
+		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
 			message: 'Error while trying to create user',
 			stack: error
 		})
@@ -22,15 +24,75 @@ const createUser = async (request, response) => {
 const getAllUsers = async (request, response) => {
 	try {
 		const databaseResponse = await UserModel.find()
+		response.status(StatusCode.OK).send(databaseResponse)
+	} catch (error) {
+		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
+			message: error.message
+		})
+	}
+}
+
+const deleteUser = async (request, response) => {
+	try {
+		const userId = request.params.userId
+		const databaseResponse = await UserModel.findByIdAndDelete(userId)
+		response.status(StatusCode.OK).send({ message: 'Succesfully deleted user', data: databaseResponse })
+	} catch (error) {
+		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
+			message: 'Error while trying to delete user with ID ${userId}',
+			error: error.message
+		})
+	}
+}
+
+const updateUser = async (request, response) => {
+	const userId = request.params.userId
+	const data = {
+		username: request.body.username,
+		password: request.body.password,
+	}
+	try {
+		const databaseResponse = await UserModel.findByIdAndUpdate(userId, data, {new: true} )
+		response.status(StatusCode.OK).send({ message: 'Succesfully updated user', data: databaseResponse })
+	} catch (error) {
+		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
+			message: 'Error while trying to update user with ID ${userId}',
+			error: error.message
+		})
+	}
+}
+
+const queryUsername = async (request, response) => {
+    
+	try {
+		const databaseResponse = await UserModel.find({username: request.query.username} )
 		response.status(200).send(databaseResponse)
 	} catch (error) {
 		response.status(500).send({
-			message: error.message
+			message: 'Error while trying to rettieve user wirh username: ${request.query.username}',
+			error: error.message
+		})
+	}
+}
+
+const getUserByID = async (request, response) => {
+    
+	try {
+		const databaseResponse = await UserModel.findById({ _id: request.params.userId} )
+		response.status(200).send(databaseResponse)
+	} catch (error) {
+		response.status(500).send({
+			message: 'Error while trying to rettieve user wirh userID: ${request.params.userId}',
+			error: error.message
 		})
 	}
 }
 
 export default {
 	createUser,
-	getAllUsers
+	getAllUsers,
+	deleteUser,
+	updateUser,
+	queryUsername,
+	getUserByID
 }
