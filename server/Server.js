@@ -37,3 +37,5 @@ application.use(Middlewares.errorHandler) // anrop som kommer fram till serevern
 
 Configuration.connectToDatabase()
 Configuration.connectToPort(application)
+
+export default application

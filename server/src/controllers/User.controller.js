@@ -66,9 +66,9 @@ const queryUsername = async (request, response) => {
     
 	try {
 		const databaseResponse = await UserModel.find({username: request.query.username} )
-		response.status(200).send(databaseResponse)
+		response.status(StatusCode.OK).send(databaseResponse)
 	} catch (error) {
-		response.status(500).send({
+		response.status(StatusCode.INTERNAL_SERVER_ERROR).send({
 			message: 'Error while trying to rettieve user wirh username: ${request.query.username}',
 			error: error.message
 		})
